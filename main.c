@@ -76,6 +76,5 @@ int main () {
             }
         }
     }
-    printf("Encerrando o programa...\n");
 return 0;
 }
