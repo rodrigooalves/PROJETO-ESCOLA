@@ -8,5 +8,6 @@ int main () {
     while (!sair) {
 
     }
+    //Teste
 return 0;
 }
