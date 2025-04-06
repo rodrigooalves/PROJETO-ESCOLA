@@ -18,7 +18,7 @@ int main () {
 
         switch(option) {
             case 1: { //MODULO ALUNO
-                int optionAluno;
+                int optionAluno; 
                 int outAluno = 0;
                 printf(" ---> PORTAL ALUNO <---\n");
 
@@ -67,6 +67,7 @@ int main () {
                 break;
             }
             case 0: { // MODULO SAIR
+                printf("Voltando ao menu principal ... \n");
                 out = 1;
                 break;
             }
@@ -74,7 +75,6 @@ int main () {
                 printf("-> Opcao invalida <-\n");
             }
         }
-
     }
     printf("Encerrando o programa...\n");
 return 0;
