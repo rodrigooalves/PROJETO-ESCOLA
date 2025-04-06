@@ -3,8 +3,10 @@
 
 int main () {
     int option;
-    //int listAluno[TAM_ALUNO]; //VETOR ALUNOS
+    int matricula;
+    int listAluno[TAM_ALUNO]; //VETOR ALUNOS
     int out = 0;
+    int qtdAluno = 0;
 
     
     while(!out) {
@@ -33,10 +35,27 @@ int main () {
                     switch(optionAluno){
                         case 1: {
                                 // FUNÇÃO DE CADASTRAR
+                                printf("1 -->> CADASTRO:\n");
+                                printf("--->> Digite a matricula: \n");
+                                int matricula;
+                                scanf("%d", &matricula);
+                                if(matricula < 0) { // VERIFICADOR PARA A MATRICULA
+                                    printf("### MATRICULA INVALIDA ###");
+                                } else {
+                                    if (qtdAluno == TAM_ALUNO) { // VERIFICADOR PARA QUANTIDADE DE ALUNO CADASTRADO
+                                        printf("### QUANTIDADE DE CADASTRO EXCEDIDO ###");
+                                    } else {
+                                        listAluno[qtdAluno] = matricula; // array listaAluno na posição qtdaluno recebe a matricula
+                                        qtdAluno ++; //ao cadastrar incrementa +1
+                                        printf("### ALUNO CADASTRADO COM SUCESSO ###");
+                                    }
+                                }
                             break;
                         }
                         case 2: {
-                                // FUNÇÃO DE LISTAR
+                                for ( int i = 0; i < qtdAluno; i++) {
+                                    printf("\nMatricula: %d - \n", listAluno[i]);
+                                }
                             break;
                         }
                         case 3: {
