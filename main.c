@@ -1,12 +1,12 @@
 #include <stdio.h>
 int main () {
 
-    int idade;
-    int altura;
-    int sair = 0;
+    /*int sair = 0;
     printf("PROJETO ESCOLA!");
     while (!sair) {
+        
 
-    }
+        //teste de branch
+    }*/
 return 0;
 }
