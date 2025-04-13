@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #define TAM_ALUNO 4
 #define TAM_MAX_NOME 99
 #define TAM_CPF 11
@@ -43,7 +44,7 @@ int main () {
 			printf(" ---> PORTAL ALUNO <---\n");
 
 			while(!outAluno) {
-				printf("#########################\n\n");
+				printf("#########################\n");
 				printf("1 --> Cadastrar aluno. <--\n");
 				printf("2 --> Listar aluno. <--\n");
 				printf("3 --> Atualizar aluno. <--\n");
@@ -63,16 +64,19 @@ int main () {
 						listaAluno[qtdAluno].nome[strcspn(listaAluno[qtdAluno].nome, "\n")] = '\0';
 
 						// CADASTRO CPF
-						printf("Digite o CPF: (APENAS NUMEROS)\n");
-						fgets(listaAluno[qtdAluno].cpf, TAM_CPF, stdin);
-						listaAluno[qtdAluno].cpf[strcspn(listaAluno[qtdAluno].cpf, "\n")] = '\0';
-						getchar();
 
+                            printf("Digite o CPF: (APENAS NUMEROS)\n");
+                            fgets(listaAluno[qtdAluno].cpf, TAM_CPF, stdin);
+                            listaAluno[qtdAluno].cpf[strcspn(listaAluno[qtdAluno].cpf, "\n")] = '\0';
+                            getchar();
 
 						// CADASTRO SEXO
-						printf("Digite o sexo (M/F): \n");
-						scanf(" %c", &listaAluno[qtdAluno].sexo);
-						getchar();
+						do {
+                            printf("Digite o sexo (M/F): \n");
+                            scanf(" %c", &listaAluno[qtdAluno].sexo);
+                            listaAluno[qtdAluno].sexo = toupper(listaAluno[qtdAluno].sexo);
+                            getchar();
+                        } while ((listaAluno[qtdAluno].sexo) != 'M' && (listaAluno[qtdAluno].sexo) != 'F');
 
 
 						// CADASTRO DATA DE NASCIMENTO
@@ -84,22 +88,23 @@ int main () {
 
 							if(listaAluno[qtdAluno].data_aluno.dia < 1 || listaAluno[qtdAluno].data_aluno.dia > 31
 							        || listaAluno[qtdAluno].data_aluno.mes < 1 || listaAluno[qtdAluno].data_aluno.mes > 12
-							        && listaAluno[qtdAluno].data_aluno.ano < 1900 || listaAluno[qtdAluno].data_aluno.ano > 2025) {
+							        || listaAluno[qtdAluno].data_aluno.ano < 1900 || listaAluno[qtdAluno].data_aluno.ano > 2025) {
 								printf("Data invalida!, digite novamente. \n");
 							}
 						} while (listaAluno[qtdAluno].data_aluno.dia < 1 || listaAluno[qtdAluno].data_aluno.dia > 31 ||
 						         listaAluno[qtdAluno].data_aluno.mes < 1 || listaAluno[qtdAluno].data_aluno.mes > 12 ||
 						         listaAluno[qtdAluno].data_aluno.ano < 1900 || listaAluno[qtdAluno].data_aluno.ano > 2025);
-						listaAluno[qtdAluno].matricula = ++incrementadorMatricula; // incrementador + 1 C) a mesma coisa
-						qtdAluno ++;
-						printf("Cadastro concluido!\n");
+						
+                    listaAluno[qtdAluno].matricula = ++incrementadorMatricula;
+				    qtdAluno ++;
+					printf("Cadastro concluido!\n");
 
 					} else {
 						printf("Lista de aluno cheia. \n\n");
 					}
-
 					break;
 				}
+
 				case 2: {
 					for (int i = 0; i < qtdAluno; i++) {
 						printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
@@ -108,11 +113,13 @@ int main () {
 					}
 					break;
 				}
+
 				case 3: {
 					// ATUALIZAR ALUNO
 					printf("-> Atualizar Aluno: \n");
 					break;
 				}
+
 				case 4: {
 					// EXCLUIR ALUNO
 					break;
@@ -122,6 +129,7 @@ int main () {
 					outAluno = 1;
 					break;
 				}
+
 				default: {
 					printf("Opcao Invalida\n");
 				}
