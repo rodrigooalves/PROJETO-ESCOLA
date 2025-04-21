@@ -645,7 +645,7 @@ int main()
                                     listaProfessor[i].nome);
                                 }
                                 
-                            int encontrou = 0;
+                            // int encontrou = 0;
                             
                             // do {
                             //     printf("Qual professor leciona está diciplina? Informe o ID. \n");
@@ -663,7 +663,7 @@ int main()
                             //         printf("Professor não cadastrado\n");
                             //     }
 
-                            } while (!encontrou);
+                            // } while (!encontrou);
                             
                             listaDisciplina[qtdDisciplina].codigo = ++incrementadorCodigoDisciplina;
                             qtdDisciplina++;
