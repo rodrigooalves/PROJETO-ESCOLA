@@ -647,21 +647,21 @@ int main()
                                 
                             int encontrou = 0;
                             
-                            do {
-                                printf("Qual professor leciona está diciplina? Informe o ID. \n");
-                                int matriculaProf;
-                                scanf("%d", &matriculaProf);
-                                getchar();
-                                for(int i = 0; i < qtdProf; i++){
-                                    if (listaProfessor[i].matricula == matriculaProf){
-                                        listaDisciplina[qtdDisciplina].professor = listaProfessor[qtdDisciplina].nome;
-                                        encontrou = 1;
-                                        break;
-                                    }
-                                }
-                                if (!encontrou) {
-                                    printf("Professor não cadastrado\n");
-                                }
+                            // do {
+                            //     printf("Qual professor leciona está diciplina? Informe o ID. \n");
+                            //     int matriculaProf;
+                            //     scanf("%d", &matriculaProf);
+                            //     getchar();
+                            //     for(int i = 0; i < qtdProf; i++){
+                            //         if (listaProfessor[i].matricula == matriculaProf){
+                            //             listaDisciplina[qtdDisciplina].professor = listaProfessor[qtdDisciplina].nome;
+                            //             encontrou = 1;
+                            //             break;
+                            //         }
+                            //     }
+                            //     if (!encontrou) {
+                            //         printf("Professor não cadastrado\n");
+                            //     }
 
                             } while (!encontrou);
                             
