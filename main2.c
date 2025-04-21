@@ -23,13 +23,27 @@ typedef struct
 
 } Aluno;
 
+typedef struct
+{
+    int matricula;
+    char nome[TAM_MAX_NOME];
+    char sexo;
+    char cpf[TAM_CPF];
+    Data data_professor;
+
+} professor;
+
 int main()
 {
-    Aluno listaAluno[TAM_ALUNO]; // VETOR ALUNOS
+    Aluno listaAluno[TAM_ALUNO];         // VETOR ALUNOS
+    professor listaProfessor[TAM_ALUNO]; // vetor professor
+
     int option;
     int out = 0;
     int qtdAluno = 0;
+    int qtdProf = 0;
     int incrementadorMatricula = 0;
+    int incrementadorMatriculaProf = 0;
 
     while (!out)
     {
@@ -311,10 +325,269 @@ int main()
         }
 
         case 2:
-        { // MODULO PROdFRESSOR
-            printf("MODULO PROFESSOR\n");
+        {
+            int optionprofessor;
+            int outProf = 0;
+
+            printf("---> PORTAL PROFESSOR <---\n");
+
+            while (!outProf)
+            {
+                /* code */
+                printf("#########################\n");
+                printf("1 --> Cadastrar professor. <--\n");
+                printf("2 --> Listar professor. <--\n");
+                printf("3 --> Atualizar professor. <--\n");
+                printf("4 --> Excluir professor. <--\n");
+                printf("0 --> Voltar para o PORTAL. <--\n\n");
+                scanf("%d", &optionprofessor);
+                getchar();
+
+                switch (optionprofessor)
+                {
+                case 1:
+                {
+                    if (qtdProf < TAM_ALUNO)
+                    {
+                        printf("Digite o nome do Professor: \n");
+                        fgets(listaProfessor[qtdProf].nome, TAM_MAX_NOME, stdin);
+                        listaProfessor[qtdProf].nome[strcspn(listaProfessor[qtdProf].nome, "\n")] = '\0';
+
+                        // CADASTRO CPF
+
+                        printf("Digite o CPF: (APENAS NUMEROS)\n");
+                        fgets(listaProfessor[qtdProf].cpf, TAM_CPF, stdin);
+                        listaProfessor[qtdProf].cpf[strcspn(listaProfessor[qtdProf].cpf, "\n")] = '\0';
+                        getchar();
+
+                        // CADASTRO SEXO
+                        do
+                        {
+                            printf("Digite o sexo (M/F): \n");
+                            scanf(" %c", &listaProfessor[qtdProf].sexo);
+                            listaProfessor[qtdProf].sexo = toupper(listaProfessor[qtdProf].sexo);
+                            getchar();
+                        } while ((listaProfessor[qtdProf].sexo) != 'M' && (listaProfessor[qtdProf].sexo) != 'F');
+
+                        // CADASTRO DATA DE NASCIMENTO
+                        do
+                        {
+                            printf("Digite a data de nascimento: (Digite nesse formato: dd mm aaaa) \n");
+                            scanf("%d %d %d", &listaProfessor[qtdProf].data_professor.dia, &listaProfessor[qtdProf].data_professor.mes, &listaProfessor[qtdProf].data_professor.ano);
+
+                            if (listaProfessor[qtdProf].data_professor.dia < 1 || listaProfessor[qtdProf].data_professor.dia > 31 || listaProfessor[qtdProf].data_professor.mes < 1 || listaProfessor[qtdProf].data_professor.mes > 12 || listaProfessor[qtdProf].data_professor.ano < 1900 || listaProfessor[qtdProf].data_professor.ano > 2025)
+                            {
+                                printf("Data invalida!, digite novamente. \n");
+                            }
+                        } while (listaProfessor[qtdProf].data_professor.dia < 1 || listaProfessor[qtdProf].data_professor.dia > 31 ||
+                                 listaProfessor[qtdProf].data_professor.mes < 1 || listaProfessor[qtdProf].data_professor.mes > 12 ||
+                                 listaProfessor[qtdProf].data_professor.ano < 1900 || listaProfessor[qtdProf].data_professor.ano > 2025);
+
+                        listaProfessor[qtdProf].matricula = ++incrementadorMatriculaProf;
+                        qtdProf++;
+                        printf("Cadastro concluido!\n");
+                    }
+                    else
+                    {
+                        printf("Lista de professores cheia. \n\n");
+                    }
+                    break;
+                }
+                case 2:
+                {
+                    for (int i = 0; i < qtdProf; i++)
+                    {
+                        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaProfessor[i].matricula, listaProfessor[i].nome,
+                               listaProfessor[i].cpf, listaProfessor[i].sexo,
+                               listaProfessor[i].data_professor.dia, listaProfessor[i].data_professor.mes, listaProfessor[i].data_professor.ano);
+                    }
+                    break;
+                }
+                case 3:
+                {
+                    printf("-> Atualizar Prefessor: \n");
+                    printf("#### Todos os Professores\n");
+                    for (int i = 0; i < qtdProf; i++)
+                    {
+                        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d.\n",
+                               listaProfessor[i].matricula, listaProfessor[i].nome,
+                               listaProfessor[i].cpf, listaProfessor[i].sexo,
+                               listaProfessor[i].data_professor.dia, listaProfessor[i].data_professor.mes, listaProfessor[i].data_professor.ano);
+                    }
+
+                    while (!outProf)
+                    {
+                        printf("#########################\n");
+                        printf("1 --> Atualizar Nome. <--\n");
+                        printf("2 --> Atualizar CPF. <--\n");
+                        printf("3 --> Atualizar Sexo. <--\n");
+                        printf("4 --> Atualizar Data de nascimento. <--\n");
+                        printf("0 --> Voltar para o PORTAL. <--\n\n");
+
+                        scanf("%d", &optionprofessor);
+                        getchar();
+
+                        if (optionprofessor == 0)
+                        {
+                            printf("Voltando ao menu principal ... \n");
+                            outProf = 1;
+                            break;
+                        }
+
+                        printf("Digite a matrícula do Professor que deseja atualizar: ");
+                        int matricula;
+                        scanf("%d", &matricula);
+                        getchar();
+
+                        int encontrou = 0;
+
+                        switch (optionprofessor)
+                        {
+                        case 1:
+                            for (int i = 0; i < qtdProf; i++)
+                            {
+                                if (listaProfessor[i].matricula == matricula)
+                                {
+                                    printf("Digite o novo nome do Professor: \n");
+                                    fgets(listaProfessor[i].nome, TAM_MAX_NOME, stdin);
+                                    listaProfessor[i].nome[strcspn(listaProfessor[i].nome, "\n")] = '\0';
+                                    printf("Nome atualizado com sucesso.\n");
+                                    encontrou = 1;
+                                    break;
+                                }
+                            }
+                            break;
+
+                        case 2:
+                            for (int i = 0; i < qtdProf; i++)
+                            {
+                                if (listaProfessor[i].matricula == matricula)
+                                {
+                                    printf("Digite o novo CPF (Apenas números):\n");
+                                    fgets(listaProfessor[i].cpf, TAM_CPF, stdin);
+                                    listaProfessor[i].cpf[strcspn(listaProfessor[i].cpf, "\n")] = '\0';
+                                    printf("CPF atualizado com sucesso.\n");
+                                    encontrou = 1;
+                                    break;
+                                }
+                            }
+                            break;
+
+                        case 3:
+                            for (int i = 0; i < qtdProf; i++)
+                            {
+                                if (listaProfessor[i].matricula == matricula)
+                                {
+                                    do
+                                    {
+                                        printf("Digite o novo sexo (M/F): \n");
+                                        scanf(" %c", &listaProfessor[i].sexo);
+                                        listaProfessor[i].sexo = toupper(listaProfessor[i].sexo);
+                                        getchar();
+                                    } while (listaProfessor[i].sexo != 'M' && listaProfessor[i].sexo != 'F');
+                                    printf("Sexo atualizado com sucesso.\n");
+                                    encontrou = 1;
+                                    break;
+                                }
+                            }
+                            break;
+
+                        case 4:
+                            for (int i = 0; i < qtdProf; i++)
+                            {
+                                if (listaProfessor[i].matricula == matricula)
+                                {
+                                    do
+                                    {
+                                        printf("Digite a nova data de nascimento (dd mm aaaa):\n");
+                                        scanf("%d %d %d", &listaProfessor[i].data_professor.dia, &listaProfessor[i].data_professor.mes, &listaProfessor[i].data_professor.ano);
+                                        getchar();
+                                        if (listaProfessor[i].data_professor.dia < 1 || listaProfessor[i].data_professor.dia > 31 ||
+                                            listaProfessor[i].data_professor.mes < 1 || listaProfessor[i].data_professor.mes > 12 ||
+                                            listaProfessor[i].data_professor.ano < 1900 || listaProfessor[i].data_professor.ano > 2025)
+                                        {
+                                            printf("Data inválida! Tente novamente.\n");
+                                        }
+                                    } while (listaProfessor[i].data_professor.dia < 1 || listaProfessor[i].data_professor.dia > 31 ||
+                                             listaProfessor[i].data_professor.mes < 1 || listaProfessor[i].data_professor.mes > 12 ||
+                                             listaProfessor[i].data_professor.ano < 1900 || listaProfessor[i].data_professor.ano > 2025);
+
+                                    printf("Data de nascimento atualizada com sucesso.\n");
+                                    encontrou = 1;
+                                    break;
+                                }
+                            }
+                            break;
+
+                        default:
+                            printf("Opção inválida!\n");
+                            break;
+                        }
+
+                        if (!encontrou)
+                        {
+                            printf("Não existe profesor com essa matrícula!\n");
+                        }
+                    }
+                    break;
+                }
+                case 4:
+                {
+
+                    for (int i = 0; i < qtdProf; i++)
+                    {
+                        printf("- Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d.\n",
+                               listaProfessor[i].matricula, listaProfessor[i].nome,
+                               listaProfessor[i].cpf, listaProfessor[i].sexo,
+                               listaProfessor[i].data_professor.dia, listaProfessor[i].data_professor.mes, listaProfessor[i].data_professor.ano);
+                    }
+
+                    printf("Digite a matrícula do professor para exclusão:\n");
+                    int matricula;
+                    scanf("%d", &matricula);
+
+                    int encontrou_matricula = 0;
+                    for (int i = 0; i < qtdProf; i++)
+                    {
+                        if (listaProfessor[i].matricula == matricula)
+                        {
+                            encontrou_matricula = 1;
+                            for (int j = i; j < qtdProf - 1; j++)
+                            {
+                                listaProfessor[j] = listaProfessor[j + 1];
+                            }
+                            qtdProf--;
+                            break;
+                        }
+                    }
+
+                    if (encontrou_matricula)
+                    {
+                        printf("Professor excluído com sucesso.\n");
+                    }
+                    else
+                    {
+                        printf("Não existe Professor com essa matrícula.\n");
+                    }
+                    break;
+                }
+
+                case 0:
+                {
+                    printf("Voltando ao menu principal ... \n");
+                    outProf = 1;
+                    break;
+                }
+
+                default:
+                {
+                    printf("Opcao Invalida\n");
+                }
+                }
+            }
             break;
         }
+
         case 3:
         { // MODULO DISCIPLINA
             printf("MODULO DISCIPLINA\n");
