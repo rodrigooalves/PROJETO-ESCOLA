@@ -33,7 +33,7 @@ typedef struct
 
 typedef struct {
     char nome[TAM_MAX_NOME];
-    char professor; // Store professor's matricula
+    int matriculaProfessor; // Store professor's matricula
     int codigo;
     int semestre;
 } Disciplina;
@@ -696,7 +696,7 @@ int main()
                                 getchar();
                                 for(int i = 0; i < qtdProf; i++){
                                     if (listaProfessor[i].matricula == matriculaProf){
-                                        listaDisciplina[qtdDisciplina].professor = listaProfessor[i].nome;
+                                        listaDisciplina[qtdDisciplina].matriculaProfessor = listaProfessor[i].matricula;
                                         encontrou = 1;
                                         break;
                                     }
