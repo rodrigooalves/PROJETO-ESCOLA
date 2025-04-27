@@ -89,9 +89,41 @@ int cadastrarAluno(Aluno listaAluno[], int qtdAluno, int incrementadorMatricula)
 
 
 }    
+int menuPrincipal(){
+        int option;
+        printf("--------> MENU ESCOLA <-------\n");
+        printf("##############################\n");
+        printf(" 1 -> Portal do Aluno. <-\n");
+        printf(" 2 -> Portal do Professor. <- \n");
+        printf(" 3 -> Portal da Disciplina. <-\n");
+        printf(" 0 -> Sair do Programa. <-\n\n");
+        scanf("%d", &option);
+        return option;
+    }
+int menuAluno(){
+    int optionAluno;
+    printf("#########################\n");
+    printf("1 --> Cadastrar aluno. <--\n");
+    printf("2 --> Listar aluno. <--\n");
+    printf("3 --> Atualizar aluno. <--\n");
+    printf("4 --> Excluir aluno. <--\n");
+    printf("0 --> Voltar para o PORTAL. <--\n\n");
+    scanf("%d", &optionAluno);
+    getchar();
+    return optionAluno;
+}
+void listarAluno(int qtdAluno, Aluno listaAluno[]){
+    for (int i = 0; i < qtdAluno; i++){
+        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
+                listaAluno[i].cpf, listaAluno[i].sexo,
+                listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
+    }
+}
 
-int main()
-{
+
+
+
+int main(){
     Aluno listaAluno[TAM_CADASTRO];         // VETOR ALUNOS
     Professor listaProfessor[TAM_CADASTRO]; // VETOR DISCPLINA
     Disciplina listaDisciplina[TAM_CADASTRO]; // VETOR DISCIPLINA
@@ -107,17 +139,11 @@ int main()
 
     while (!out)
     {
-        printf("--------> MENU ESCOLA <-------\n");
-        printf("##############################\n");
-        printf(" 1 -> Portal do Aluno. <-\n");
-        printf(" 2 -> Portal do Professor. <- \n");
-        printf(" 3 -> Portal da Disciplina. <-\n");
-        printf(" 0 -> Sair do Programa. <-\n\n");
-        scanf("%d", &option);
+        option = menuPrincipal();
 
         switch (option)
         {
-        case 1: // MODULO ALUNO
+        case 1: // MODULO ALUNO //
         { 
             int optionAluno;
             int outAluno = 0;
@@ -125,14 +151,7 @@ int main()
 
             while (!outAluno)
             {
-                printf("#########################\n");
-                printf("1 --> Cadastrar aluno. <--\n");
-                printf("2 --> Listar aluno. <--\n");
-                printf("3 --> Atualizar aluno. <--\n");
-                printf("4 --> Excluir aluno. <--\n");
-                printf("0 --> Voltar para o PORTAL. <--\n\n");
-                scanf("%d", &optionAluno);
-                getchar();
+                optionAluno = menuAluno();
 
                 switch (optionAluno)
                 {
@@ -156,13 +175,8 @@ int main()
                         printf("Nao ha aluno cadastrado!\n "); 
                         break;
                     }
-
-                    for (int i = 0; i < qtdAluno; i++)
-                    {
-                        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
-                               listaAluno[i].cpf, listaAluno[i].sexo,
-                               listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
-                    }
+                    listarAluno(qtdAluno, listaAluno);
+                    
                     break;
                 }
 
@@ -222,6 +236,8 @@ int main()
                                         printf("Nome atualizado com sucesso.\n");
                                         encontrou = 1;
                                         break;
+                                    } else {
+                                        printf("Matricula invalidade, tente novamete...");
                                     }
                                 }
                                 break;
@@ -307,13 +323,7 @@ int main()
                         break;
                     }
 
-                    for (int i = 0; i < qtdAluno; i++)
-                    {
-                        printf("- Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d.\n",
-                               listaAluno[i].matricula, listaAluno[i].nome,
-                               listaAluno[i].cpf, listaAluno[i].sexo,
-                               listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
-                    }
+                    listarAluno(qtdAluno, listaAluno);
 
                     printf("Digite a matrícula do aluno para exclusão:\n");
                     int matricula;
@@ -334,12 +344,10 @@ int main()
                         }
                     }
 
-                    if (encontrou_matricula)
-                    {
+                    if (encontrou_matricula){
                         printf("Aluno excluído com sucesso.\n");
                     }
-                    else
-                    {
+                    else{
                         printf("Não existe aluno com essa matrícula.\n");
                     }
                     break;
