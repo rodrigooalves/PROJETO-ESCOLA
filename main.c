@@ -313,6 +313,31 @@ void excluirProf(int qtdProf, Professor listaProfessor[], encontrou_matricula)
         }
     }
 }
+
+void listarSexo (int qtdAluno, Aluno listaAluno[]) {
+    char sexo; 
+
+    int encontrou = 0;
+
+    printf("Digite o sexo para listar (M/F): ");
+    scanf(" %c", &sexo); 
+    getchar(); 
+
+    if ( sexo != 'M' || sexo != 'F' || sexo != 'm' || sexo != 'f'){
+        printf("Sexo invalido! Use M ou F.\n");
+        return;
+    }
+
+        for (int i = 0; i < qtdAluno; i++){
+            if (listaAluno[i].sexo == sexo ){
+                printf("- %s\n", alunos[i].nome);
+                encontrou =1; 
+            }
+        }
+        if (!encontrou) {
+            printf("Nenhum aluno encontrado para o sexo informado.\n");
+    }
+}
 int menuPrincipal()
 {
     int option;
@@ -321,6 +346,7 @@ int menuPrincipal()
     printf(" 1 -> Portal do Aluno. <-\n");
     printf(" 2 -> Portal do Professor. <- \n");
     printf(" 3 -> Portal da Disciplina. <-\n");
+    printf(" 4 -> Relatorios. <-\n");
     printf(" 0 -> Sair do Programa. <-\n\n");
     scanf("%d", &option);
     return option;
@@ -356,7 +382,6 @@ int main()
 
     while (!out)
     {
-        int optionprofessor;
 
         option = menuPrincipal();
 
@@ -600,6 +625,8 @@ int main()
 
         case 2: // MODULO PROFESSOR
         {
+            int optionprofessor;
+
             int outProf = 0;
 
             printf("---> PORTAL PROFESSOR <---\n");
@@ -815,17 +842,101 @@ int main()
             }
             break;
         }
-        case 0: // MODULO SAIR
-        {
-            printf("Saindo ... \n");
-            out = 1;
+        case 4: // Relatorios {
+            int outRelatorios = 0;
+            int opcaoRelatorio;
+            printf("---> Relatorios disponiveis <---\n");
+
+while (!outRelatorios)
+{
+    printf(" --> MENU DE LISTAGENS\n");
+    printf("1  --> Listar Alunos\n");
+    printf("2  --> Listar Professores\n");
+    printf("3  --> Listar Disciplinas (sem alunos)\n");
+    printf("4  --> Listar uma disciplina (com alunos matriculados)\n");
+    printf("5  --> Listar Alunos por sexo (Masculino/Feminino)\n");
+    printf("6  --> Listar Alunos ordenados por Nome\n");
+    printf("7  --> Listar Alunos ordenados por Data de Nascimento\n");
+    printf("8  --> Listar Professores por sexo (Masculino/Feminino)\n");
+    printf("9  --> Listar Professores ordenados por Nome\n");
+    printf("10 --> Listar Professores ordenados por Data de Nascimento\n");
+    printf("11 --> Aniversariantes do mês\n");
+    printf("12 --> Buscar pessoas (professor/aluno) por nome (mínimo 3 letras)\n");
+    printf("13 --> Listar Alunos matriculados em menos de 3 disciplinas\n");
+    printf("14 --> Listar Disciplinas com professor e mais de 40 vagas\n");
+    printf("0  --> Voltar para o menu principal\n");
+    printf("Escolha uma opcao: ");
+    scanf("%d", &opcaoRelatorio);
+    getchar();
+    
+    switch(opcaoRelatorio) {
+        case 1:
+            // Função para listar alunos
+            listarAluno(qtdAluno, listaAluno)
             break;
-        }
+        case 2:
+            // Função para listar professores
+            listarProf(qtdProf, listaProfessor)
+            break;
+        case 3:
+            // Função para listar disciplinas (sem alunos)
+            break;
+        case 4:
+            // Função para listar uma disciplina (com alunos)
+            break;
+        case 5:
+            // Função para listar alunos por sexo
+            listarSexo (qtdAluno, listaAluno);
+            break;
+        case 6:
+            // Função para listar alunos ordenados por nome
+            break;
+        case 7:
+            // Função para listar alunos ordenados por data de nascimento
+            break;
+        case 8:
+            // Função para listar professores por sexo
+            break;
+        case 9:
+            // Função para listar professores ordenados por nome
+            break;
+        case 10:
+            // Função para listar professores ordenados por data de nascimento
+            break;
+        case 11:
+            // Função para listar aniversariantes do mês
+            break;
+        case 12:
+            // Função para buscar pessoas pelo nome
+            break;
+        case 13:
+            // Função para listar alunos com menos de 3 disciplinas
+            ;
+            break;
+        case 14:
+            // Função para listar disciplinas com mais de 40 vagas
+            break;
+        case 0:
+            printf("Voltando para o menu principal...\n");
+            break;
         default:
-        {
-            printf("-> Opcao invalida <-\n");
-        }
-        }
+            printf("Opcao invalida! Tente novamente.\n");
+            break;
     }
-    return 0;
+    
+
+        }
+    case 0: // MODULO SAIR
+    {
+        printf("Saindo ... \n");
+        out = 1;
+        break;
+    }
+    default:
+    {
+        printf("-> Opcao invalida <-\n");
+    }
+    }
+}
+return 0;
 }
