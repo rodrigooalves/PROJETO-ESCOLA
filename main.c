@@ -89,6 +89,16 @@ int cadastrarAluno(Aluno listaAluno[], int qtdAluno, int incrementadorMatricula)
     }
 }
 
+void listarAluno(int qtdAluno, Aluno listaAluno[])
+{
+    for (int i = 0; i < qtdAluno; i++)
+    {
+        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
+               listaAluno[i].cpf, listaAluno[i].sexo,
+               listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
+    }
+}
+
 int cadastrarProf(Professor listaProfessor[], int qtdProf, int incrementadorMatriculaProf)
 {
     if (qtdProf < TAM_CADASTRO)
@@ -147,41 +157,6 @@ void listarProf(int qtdProf, Professor listaProfessor[])
         printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaProfessor[i].matricula, listaProfessor[i].nome,
                listaProfessor[i].cpf, listaProfessor[i].sexo,
                listaProfessor[i].data_professor.dia, listaProfessor[i].data_professor.mes, listaProfessor[i].data_professor.ano);
-    }
-}
-
-int menuPrincipal()
-{
-    int option;
-    printf("--------> MENU ESCOLA <-------\n");
-    printf("##############################\n");
-    printf(" 1 -> Portal do Aluno. <-\n");
-    printf(" 2 -> Portal do Professor. <- \n");
-    printf(" 3 -> Portal da Disciplina. <-\n");
-    printf(" 0 -> Sair do Programa. <-\n\n");
-    scanf("%d", &option);
-    return option;
-}
-int menuAluno()
-{
-    int optionAluno;
-    printf("#########################\n");
-    printf("1 --> Cadastrar aluno. <--\n");
-    printf("2 --> Listar aluno. <--\n");
-    printf("3 --> Atualizar aluno. <--\n");
-    printf("4 --> Excluir aluno. <--\n");
-    printf("0 --> Voltar para o PORTAL. <--\n\n");
-    scanf("%d", &optionAluno);
-    getchar();
-    return optionAluno;
-}
-void listarAluno(int qtdAluno, Aluno listaAluno[])
-{
-    for (int i = 0; i < qtdAluno; i++)
-    {
-        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
-               listaAluno[i].cpf, listaAluno[i].sexo,
-               listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
     }
 }
 
@@ -318,6 +293,50 @@ void attProf(int qtdProf, Professor listaProfessor[])
             getchar();
         }
     }
+}
+
+void excluirProf(int qtdProf, Professor listaProfessor[], encontrou_matricula)
+{
+
+    printf("Digite a matrícula do professor para exclusão:\n");
+    int matricula;
+    scanf("%d", &matricula);
+    for (int i = 0; i < qtdProf; i++)
+    {
+        if (listaProfessor[i].matricula == matricula)
+        {
+            encontrou_matricula = 1;
+            for (int j = i; j < qtdProf - 1; j++)
+            {
+                listaProfessor[j] = listaProfessor[j + 1];
+            }
+        }
+    }
+}
+int menuPrincipal()
+{
+    int option;
+    printf("--------> MENU ESCOLA <-------\n");
+    printf("##############################\n");
+    printf(" 1 -> Portal do Aluno. <-\n");
+    printf(" 2 -> Portal do Professor. <- \n");
+    printf(" 3 -> Portal da Disciplina. <-\n");
+    printf(" 0 -> Sair do Programa. <-\n\n");
+    scanf("%d", &option);
+    return option;
+}
+int menuAluno()
+{
+    int optionAluno;
+    printf("#########################\n");
+    printf("1 --> Cadastrar aluno. <--\n");
+    printf("2 --> Listar aluno. <--\n");
+    printf("3 --> Atualizar aluno. <--\n");
+    printf("4 --> Excluir aluno. <--\n");
+    printf("0 --> Voltar para o PORTAL. <--\n\n");
+    scanf("%d", &optionAluno);
+    getchar();
+    return optionAluno;
 }
 
 int main()
@@ -640,7 +659,7 @@ int main()
                     attProf(qtdProf, listaProfessor);
                     break;
                 }
-                case 4: //EXcluir professor
+                case 4: // EXcluir professor
                 {
 
                     if (qtdProf == 0)
@@ -649,36 +668,16 @@ int main()
                         break;
                     }
 
-                    for (int i = 0; i < qtdProf; i++)
-                    {
-                        printf("- Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d.\n",
-                               listaProfessor[i].matricula, listaProfessor[i].nome,
-                               listaProfessor[i].cpf, listaProfessor[i].sexo,
-                               listaProfessor[i].data_professor.dia, listaProfessor[i].data_professor.mes, listaProfessor[i].data_professor.ano);
-                    }
-
-                    printf("Digite a matrícula do professor para exclusão:\n");
-                    int matricula;
-                    scanf("%d", &matricula);
+                    listarProf(qtdProf, listaProfessor);
 
                     int encontrou_matricula = 0;
-                    for (int i = 0; i < qtdProf; i++)
-                    {
-                        if (listaProfessor[i].matricula == matricula)
-                        {
-                            encontrou_matricula = 1;
-                            for (int j = i; j < qtdProf - 1; j++)
-                            {
-                                listaProfessor[j] = listaProfessor[j + 1];
-                            }
-                            qtdProf--;
-                            break;
-                        }
-                    }
 
-                    if (encontrou_matricula)
+                    excluirProf(qtdProf, listaProfessor, encontrou_matricula)
+
+                        if (encontrou_matricula)
                     {
                         printf("Professor excluído com sucesso.\n");
+                        qtdProf--;
                     }
                     else
                     {
