@@ -111,6 +111,18 @@ int menuAluno(){
     getchar();
     return optionAluno;
 }
+int menuAtualizarAluno() {
+    int optionAluno;
+    printf("#########################\n");
+    printf("1 --> Atualizar Nome. <--\n");
+    printf("2 --> Atualizar CPF. <--\n");
+    printf("3 --> Atualizar Sexo. <--\n");
+    printf("4 --> Atualizar Data de nascimento. <--\n");
+    printf("0 --> Voltar para o PORTAL. <--\n\n");
+    scanf("%d", &optionAluno);
+    getchar();
+    return optionAluno;
+}
 void listarAluno(int qtdAluno, Aluno listaAluno[]){
     for (int i = 0; i < qtdAluno; i++){
         printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
@@ -167,7 +179,6 @@ int main(){
 
                     break;
                 }
-
                 case 2: // LISTAR ALUNO
                 {
                     if (qtdAluno == 0){
@@ -175,10 +186,8 @@ int main(){
                         break;
                     }
                     listarAluno(qtdAluno, listaAluno);
-                    
                     break;
                 }
-
                 case 3: // ATUALIZAR ALUNO
                 {
                     if (qtdAluno == 0) {
@@ -186,28 +195,13 @@ int main(){
                         break;
                     }
                     
-                    printf("-> Atualizar Aluno: \n");
-                    printf("#### Todos Alunos\n");
-                    for (int i = 0; i < qtdAluno; i++)
-                    {
-                        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d.\n",
-                               listaAluno[i].matricula, listaAluno[i].nome,
-                               listaAluno[i].cpf, listaAluno[i].sexo,
-                               listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
-                    }
-
+                    printf("# Atualizar Aluno: #\n");
+                    printf("# Listando todos os alunos: #\n");
+                    listarAluno(qtdAluno,listaAluno);
 
                     while (!outAluno)
                     {
-                        printf("#########################\n");
-                        printf("1 --> Atualizar Nome. <--\n");
-                        printf("2 --> Atualizar CPF. <--\n");
-                        printf("3 --> Atualizar Sexo. <--\n");
-                        printf("4 --> Atualizar Data de nascimento. <--\n");
-                        printf("0 --> Voltar para o PORTAL. <--\n\n");
-
-                        scanf("%d", &optionAluno);
-                        getchar();
+                        optionAluno = menuAtualizarAluno();
 
                         if (optionAluno == 0)
                         {
