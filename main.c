@@ -11,7 +11,6 @@ typedef struct
     int mes;
     int ano;
 } Data;
-
 // STRUCT ALUNO
 typedef struct
 {
@@ -21,7 +20,6 @@ typedef struct
     char cpf[TAM_CPF];
     Data data_aluno;
 } Aluno;
-
 typedef struct
 {
     int matricula;
@@ -30,7 +28,6 @@ typedef struct
     char cpf[TAM_CPF];
     Data data_professor;
 } Professor;
-
 typedef struct {
     char nome[TAM_MAX_NOME];
     int matriculaProfessor; // Store professor's matricula
@@ -159,7 +156,6 @@ int atualizarCPF(Aluno listaAluno[], int qtdAluno, int matricula) {
     }
     return encontrou;
 }
-
 void listarAluno(int qtdAluno, Aluno listaAluno[]){
     for (int i = 0; i < qtdAluno; i++){
         printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
@@ -199,14 +195,13 @@ int main(){
     int incrementadorMatriculaProf = 0;
     int incrementadorCodigoDisciplina = 0;
 
-    while (!out)
-    {
+    while (!out){
         option = menuPrincipal();
 
-        switch (option)
-        {
-        case 1: // MODULO ALUNO //
-        { 
+        switch (option){
+            
+            case 1: // MODULO ALUNO //
+             
             int optionAluno;
             int outAluno = 0;
             printf(" ---> PORTAL ALUNO <---\n");
@@ -239,7 +234,7 @@ int main(){
                     break;
                 }
                 case 3: // ATUALIZAR ALUNO
-                {
+                
                     if (qtdAluno == 0) {
                         printf("Nao ha alunos cadastrados! \n");
                         break;
@@ -344,7 +339,7 @@ int main(){
                             }
                         }
                         break;
-                }
+                    }
 
                 case 4: // EXCLUSÃO 
                 {
@@ -382,6 +377,7 @@ int main(){
                     }
                     break;
                 }
+                
 
                 case 0:
                 {
@@ -394,13 +390,220 @@ int main(){
                 {
                     printf("Opcao Invalida\n");
                 }
-                }
+                
             }
             break;
+            }
         }
 
         case 2: // MODULO PROFESSOR
-        {
+        {        int main() {
+            Aluno listaAluno[TAM_CADASTRO];         // VETOR ALUNOS
+            Professor listaProfessor[TAM_CADASTRO]; // VETOR PROFESSORES
+            Disciplina listaDisciplina[TAM_CADASTRO]; // VETOR DISCIPLINAS
+        
+            int option;
+            int out = 0;
+            int qtdAluno = 0;
+            int qtdProf = 0;
+            int qtdDisciplina = 0;
+            int incrementadorMatricula = 0;
+            int incrementadorMatriculaProf = 0;
+            int incrementadorCodigoDisciplina = 0;
+        
+            while (!out) {
+                option = menuPrincipal();
+        
+                switch (option) {
+                    case 1: { // MODULO ALUNO
+                        int optionAluno;
+                        int outAluno = 0;
+                        printf(" ---> PORTAL ALUNO <---\n");
+        
+                        while (!outAluno) {
+                            optionAluno = menuAluno();
+        
+                            switch (optionAluno) {
+                                case 1: { // CADASTRO ALUNO
+                                    int retorno = cadastrarAluno(listaAluno, qtdAluno, incrementadorMatricula);
+                                    if (retorno == 1) {
+                                        printf("Cadastro concluido!\n");
+                                        ++incrementadorMatricula;
+                                        ++qtdAluno;
+                                    } else {
+                                        printf("Lista de aluno cheia. \n\n");
+                                    }
+                                    break;
+                                }
+                                case 2: { // LISTAR ALUNO
+                                    if (qtdAluno == 0) {
+                                        printf("Nao ha aluno cadastrado!\n ");
+                                        break;
+                                    }
+                                    listarAluno(qtdAluno, listaAluno);
+                                    break;
+                                }
+                                case 3: { // ATUALIZAR ALUNO
+                                    if (qtdAluno == 0) {
+                                        printf("Nao ha alunos cadastrados! \n");
+                                        break;
+                                    }
+        
+                                    printf("# Atualizar Aluno: #\n");
+                                    printf("# Listando todos os alunos: #\n");
+                                    listarAluno(qtdAluno, listaAluno);
+        
+                                    while (!outAluno) {
+                                        optionAluno = menuAtualizarAluno();
+        
+                                        if (optionAluno == 0) {
+                                            printf("Voltando ao menu principal ... \n");
+                                            outAluno = 1;
+                                            break;
+                                        }
+        
+                                        printf("Digite a matrícula do aluno que deseja atualizar: ");
+                                        int matricula;
+                                        scanf("%d", &matricula);
+                                        getchar();
+        
+                                        int encontrou = 0;
+        
+                                        switch (optionAluno) {
+                                            case 1: { // ATUALIZAR NOME
+                                                int retorno = atualizarNome(listaAluno, qtdAluno, matricula);
+                                                if (retorno == 1) {
+                                                    printf("Atualização concluída!\n");
+                                                    encontrou = 1;
+                                                } else {
+                                                    printf("Atualização falhou.\n");
+                                                }
+                                                break;
+                                            }
+                                            case 2: { // ATUALIZAR CPF
+                                                int retorno = atualizarCPF(listaAluno, qtdAluno, matricula);
+                                                if (retorno == 1) {
+                                                    printf("Atualizacao concluida!\n");
+                                                    encontrou = 1;
+                                                } else {
+                                                    printf("Atualizacao falhou!\n");
+                                                }
+                                                break;
+                                            }
+                                            case 3: { // ATUALIZAR SEXO
+                                                for (int i = 0; i < qtdAluno; i++) {
+                                                    if (listaAluno[i].matricula == matricula) {
+                                                        do {
+                                                            printf("Digite o novo sexo (M/F): \n");
+                                                            scanf(" %c", &listaAluno[i].sexo);
+                                                            listaAluno[i].sexo = toupper(listaAluno[i].sexo);
+                                                            getchar();
+                                                        } while (listaAluno[i].sexo != 'M' && listaAluno[i].sexo != 'F');
+                                                        printf("Sexo atualizado com sucesso.\n");
+                                                        encontrou = 1;
+                                                        break;
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                            case 4: { // ATUALIZAR DATA DE NASCIMENTO
+                                                for (int i = 0; i < qtdAluno; i++) {
+                                                    if (listaAluno[i].matricula == matricula) {
+                                                        do {
+                                                            printf("Digite a nova data de nascimento (dd mm aaaa):\n");
+                                                            scanf("%d %d %d", &listaAluno[i].data_aluno.dia, &listaAluno[i].data_aluno.mes, &listaAluno[i].data_aluno.ano);
+                                                            getchar();
+                                                            if (listaAluno[i].data_aluno.dia < 1 || listaAluno[i].data_aluno.dia > 31 ||
+                                                                listaAluno[i].data_aluno.mes < 1 || listaAluno[i].data_aluno.mes > 12 ||
+                                                                listaAluno[i].data_aluno.ano < 1900 || listaAluno[i].data_aluno.ano > 2025) {
+                                                                printf("Data inválida! Tente novamente.\n");
+                                                            }
+                                                        } while (listaAluno[i].data_aluno.dia < 1 || listaAluno[i].data_aluno.dia > 31 ||
+                                                                 listaAluno[i].data_aluno.mes < 1 || listaAluno[i].data_aluno.mes > 12 ||
+                                                                 listaAluno[i].data_aluno.ano < 1900 || listaAluno[i].data_aluno.ano > 2025);
+        
+                                                        printf("Data de nascimento atualizada com sucesso.\n");
+                                                        encontrou = 1;
+                                                        break;
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                            default: {
+                                                printf("Opção inválida!\n");
+                                                break;
+                                            }
+                                        }
+        
+                                        if (!encontrou) {
+                                            printf("Não existe aluno com essa matrícula!\n");
+                                        }
+                                    }
+                                    break;
+                                }
+                                case 4: { // EXCLUSÃO
+                                    if (qtdAluno == 0) {
+                                        printf("Nao ha aluno cadastrado\n");
+                                        break;
+                                    }
+        
+                                    listarAluno(qtdAluno, listaAluno);
+        
+                                    printf("Digite a matrícula do aluno para exclusão:\n");
+                                    int matricula;
+                                    scanf("%d", &matricula);
+        
+                                    int encontrou_matricula = 0;
+                                    for (int i = 0; i < qtdAluno; i++) {
+                                        if (listaAluno[i].matricula == matricula) {
+                                            encontrou_matricula = 1;
+                                            for (int j = i; j < qtdAluno - 1; j++) {
+                                                listaAluno[j] = listaAluno[j + 1];
+                                            }
+                                            qtdAluno--;
+                                            break;
+                                        }
+                                    }
+        
+                                    if (encontrou_matricula) {
+                                        printf("Aluno excluído com sucesso.\n");
+                                    } else {
+                                        printf("Não existe aluno com essa matrícula.\n");
+                                    }
+                                    break;
+                                }
+                                case 0: {
+                                    printf("Voltando ao menu principal ... \n");
+                                    outAluno = 1;
+                                    break;
+                                }
+                                default: {
+                                    printf("Opcao Invalida\n");
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    case 2: { // MODULO PROFESSOR
+                        // Código do módulo professor
+                        break;
+                    }
+                    case 3: { // MODULO DISCIPLINA
+                        // Código do módulo disciplina
+                        break;
+                    }
+                    case 0: { // MODULO SAIR
+                        printf("Saindo ... \n");
+                        out = 1;
+                        break;
+                    }
+                    default: {
+                        printf("-> Opcao invalida <-\n");
+                    }
+                }
+            }
+            return 0;
+        }
             int optionprofessor;
             int outProf = 0;
 
@@ -690,8 +893,9 @@ int main(){
                     printf("Opcao Invalida\n");
                 }
                 
+                }
+                break;
             }
-            break;
         }
 
         case 3: 
