@@ -554,17 +554,19 @@ int menuAluno()
 }
 
 // Funções Lista
+
 void listarSexo(int qtdAluno, Aluno listaAluno[])
 {
     char sexo;
-
     int encontrou = 0;
 
     printf("Digite o sexo para listar (M/F): ");
     scanf(" %c", &sexo);
     getchar();
 
-    if (sexo != 'M' && sexo != 'F' && sexo != 'm' && sexo != 'f')
+    sexo = toupper(sexo); 
+
+    if (sexo != 'M' && sexo != 'F')
     {
         printf("Sexo invalido! Use M ou F.\n");
         return;
@@ -572,17 +574,19 @@ void listarSexo(int qtdAluno, Aluno listaAluno[])
 
     for (int i = 0; i < qtdAluno; i++)
     {
-        if (listaAluno[i].sexo == sexo)
+        if (toupper(listaAluno[i].sexo) == sexo)
         {
             printf("- %s\n", listaAluno[i].nome);
             encontrou = 1;
         }
     }
+
     if (!encontrou)
     {
-        printf("Nenhum aluno encontrado para o sexo informado.\n");
+        printf("Nenhum cadastro encontrado para o sexo informado.\n");
     }
 }
+
 
 int main()
 {
@@ -607,7 +611,6 @@ int main()
         switch (option)
 
         {
-            int outRelatorios;
 
         case 1: // MODULO ALUNO //
         {
@@ -833,7 +836,7 @@ int main()
                 {
                     printf("Voltando ao menu principal ... \n");
                     outAluno = 1;
-                    break;
+                    continue;
                 }
 
                 default:
@@ -1070,6 +1073,7 @@ int main()
         case 4: // Relatorios
         {
             int outRelatorios = 0;
+
             int opcaoRelatorio;
             printf("---> Relatorios disponiveis <---\n");
 
@@ -1123,6 +1127,8 @@ int main()
                     break;
                 case 8:
                     // Função para listar professores por sexo
+                    listarSexo(qtdProf, listaProfessor);
+
                     break;
                 case 9:
                     // Função para listar professores ordenados por nome
@@ -1145,25 +1151,28 @@ int main()
                     break;
                 case 0:
                     printf("Voltando para o menu principal...\n");
+                    outRelatorios = 1;
                     break;
                 default:
                     printf("Opcao invalida! Tente novamente.\n");
                     break;
                 }
-                        }
+            }
+            break;
         }
 
         case 0: // MODULO SAIR
         {
             printf("Saindo ... \n");
-            outRelatorios = 1;
+            out = 1;
             break;
         }
         default:
         {
             printf("-> Opcao invalida <-\n");
+            break;
         }
         }
-        return 0;
     }
+    return 0;
 }
