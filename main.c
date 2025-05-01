@@ -607,7 +607,6 @@ int main()
         switch (option)
 
         {
-            int outRelatorios;
 
         case 1: // MODULO ALUNO //
         {
