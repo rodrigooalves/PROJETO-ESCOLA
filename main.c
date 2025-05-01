@@ -563,8 +563,9 @@ void listarSexo(int qtdAluno, Aluno listaAluno[])
     printf("Digite o sexo para listar (M/F): ");
     scanf(" %c", &sexo);
     getchar();
+    sexo = toupper(sexo); // Transforma 'm' em 'M', 'f' em 'F'
 
-    if (sexo != 'M' && sexo != 'F' && sexo != 'm' && sexo != 'f')
+    if (sexo != 'M' && sexo != 'F')
     {
         printf("Sexo invalido! Use M ou F.\n");
         return;
@@ -572,17 +573,19 @@ void listarSexo(int qtdAluno, Aluno listaAluno[])
 
     for (int i = 0; i < qtdAluno; i++)
     {
-        if (listaAluno[i].sexo == sexo)
+        if (toupper(listaAluno[i].sexo) == sexo)
         {
             printf("- %s\n", listaAluno[i].nome);
             encontrou = 1;
         }
     }
+    
     if (!encontrou)
     {
         printf("Nenhum aluno encontrado para o sexo informado.\n");
     }
 }
+
 void listarAniversariantes(int qtdAluno, Aluno listaAluno[], int qtdProf, Professor listaProfessor[]){
     int i=0, j=0, mes = 0, encontradoA=0, encontradoP=0;
     printf("Informe a numeração do mês: ");
@@ -618,6 +621,43 @@ void listarAniversariantes(int qtdAluno, Aluno listaAluno[], int qtdProf, Profes
     }
 }
 
+void listarOrdenadosPorNascimento(Aluno listaAluno[], int qtdAluno){
+    if (qtdAluno == 0) {
+        printf("Nao ha alunos cadastrados!\n");
+        return;
+    }
+
+    // Copiar lista
+    Aluno copia[100];
+    for (int i = 0; i < qtdAluno; i++) {
+        copia[i] = listaAluno[i];
+    }
+    
+    for (int i = 0; i < qtdAluno - 1; i++) {
+        for (int j = 0; j < qtdAluno - 1 - i; j++) {
+            int ano1 = copia[j].data_aluno.ano;
+            int mes1 = copia[j].data_aluno.mes;
+            int dia1 = copia[j].data_aluno.dia;
+
+            int ano2 = copia[j + 1].data_aluno.ano;
+            int mes2 = copia[j + 1].data_aluno.mes;
+            int dia2 = copia[j + 1].data_aluno.dia;
+
+            if ( ano1 > ano2 || (ano1 == ano2 && mes1 > mes2) || (ano1 == ano2 && mes1 == mes2 && dia1 > dia2)) {
+                Aluno temp = copia[j];
+                copia[j] = copia[j + 1];
+                copia[j + 1] = temp;
+            }
+        }
+    }
+    
+    for (int i = 0; i < qtdAluno; i++) {
+        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
+        listaAluno[i].cpf, listaAluno[i].sexo,
+        listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
+    }
+    
+}
 
 int main()
 {
@@ -1154,15 +1194,20 @@ int main()
                     break;
                 case 7:
                     // Função para listar alunos ordenados por data de nascimento
+                    printf("Alunos ordenados por data de nascimento:\n");
+                    listarOrdenadosPorNascimento(listaAluno, qtdAluno);
                     break;
                 case 8:
                     // Função para listar professores por sexo
+                    listarSexo(qtdProf, listaProfessor);
                     break;
                 case 9:
                     // Função para listar professores ordenados por nome
                     break;
                 case 10:
                     // Função para listar professores ordenados por data de nascimento
+                    printf("Professores ordenados por data de nascimento:\n");
+                    listarOrdenadosPorNascimento(listaProfessor, qtdProf);
                     break;
                 case 11:
                     // Função para listar aniversariantes do mês
