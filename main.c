@@ -738,6 +738,7 @@ void listarSexo(int qtdAluno, Aluno listaAluno[])
     printf("Digite o sexo para listar (M/F): ");
     scanf(" %c", &sexo);
     getchar();
+    sexo = toupper(sexo); // Transforma 'm' em 'M', 'f' em 'F'
 
     sexo = toupper(sexo);
 
@@ -1180,6 +1181,8 @@ int main()
                     break;
                 case 7:
                     // Função para listar alunos ordenados por data de nascimento
+                    printf("Alunos ordenados por data de nascimento:\n");
+                    listarOrdenadosPorNascimento(listaAluno, qtdAluno);
                     break;
                 case 8:
                     // Função para listar professores por sexo
@@ -1191,6 +1194,8 @@ int main()
                     break;
                 case 10:
                     // Função para listar professores ordenados por data de nascimento
+                    printf("Professores ordenados por data de nascimento:\n");
+                    listarOrdenadosPorNascimento(listaProfessor, qtdProf);
                     break;
                 case 11:
                     // Função para listar aniversariantes do mês
