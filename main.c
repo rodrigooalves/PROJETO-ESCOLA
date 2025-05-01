@@ -579,29 +579,6 @@ void listarSexo(int qtdAluno, Aluno listaAluno[])
     }
     return encontrou;
 }
-void listarAluno(int qtdAluno, Aluno listaAluno[]){
-    for (int i = 0; i < qtdAluno; i++){
-        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
-                listaAluno[i].cpf, listaAluno[i].sexo,
-                listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
-    }
-}
-
-
-//##############################################
-//MODULO - PROFESSOR
-
-
-//##############################################
-//MODULO - DISCIPLINAS
-
-// void listarDisciplina(int qtdDisciplna, Disciplina listarDisciplina[]) {
-//     for(int i = 0; i < qtdDisciplina; i++) {
-//         printf("%d - %s. Professor: %s\n", listaDisciplina[i].codigo, listaDisciplina[i].nome, listaProfessor[i].nome);
-//     }
-// }
-
-
 
 
 int main(){
