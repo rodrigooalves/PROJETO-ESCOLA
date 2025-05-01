@@ -1155,7 +1155,7 @@ int main()
         case 0: // MODULO SAIR
         {
             printf("Saindo ... \n");
-            outRelatorios = 1;
+            out = 1;
             break;
         }
         default:
