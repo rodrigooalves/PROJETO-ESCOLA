@@ -659,13 +659,8 @@ int main()
 
                     printf("-> Atualizar Aluno: \n");
                     printf("#### Todos Alunos\n");
-                    for (int i = 0; i < qtdAluno; i++)
-                    {
-                        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d.\n",
-                               listaAluno[i].matricula, listaAluno[i].nome,
-                               listaAluno[i].cpf, listaAluno[i].sexo,
-                               listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
-                    }
+                    listarAluno(qtdAluno, listaAluno);
+
 
                     while (!outAluno)
                     {
@@ -709,7 +704,7 @@ int main()
                                 }
                                 else
                                 {
-                                    printf("Matricula invalidade, tente novamete...");
+                                    printf("Matricula invalida, tente novamete...");
                                 }
                             }
                             break;
