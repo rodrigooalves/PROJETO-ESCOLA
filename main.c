@@ -747,6 +747,41 @@ void listarSexo(int qtdAluno, Aluno listaAluno[])
         printf("Nenhum aluno encontrado para o sexo informado.\n");
     }
 }
+void listarAniversariantes(int qtdAluno, Aluno listaAluno[], int qtdProf, Professor listaProfessor[]){
+    int i=0, j=0, mes = 0, encontradoA=0, encontradoP=0;
+    printf("Informe a numeração do mês: ");
+    scanf("%d",&mes);
+    while(i<qtdAluno){
+        if(listaAluno[i].data_aluno.mes == mes){  
+            printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaAluno[i].matricula, listaAluno[i].nome,
+            listaAluno[i].cpf, listaAluno[i].sexo,
+            listaAluno[i].data_aluno.dia, listaAluno[i].data_aluno.mes, listaAluno[i].data_aluno.ano);
+            encontradoA=1;
+            i++;
+        }else{
+            i++;
+        }
+    }
+  
+    while(j<qtdProf){
+        if(listaProfessor[j].data_professor.mes == mes){
+            printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaProfessor[i].matricula, listaProfessor[i].nome,
+            listaProfessor[i].cpf, listaProfessor[i].sexo,
+            listaProfessor[i].data_professor.dia, listaProfessor[i].data_professor.mes, listaProfessor[i].data_professor.ano);
+            encontradoP=1;
+            j++;
+        }else{
+            j++;
+        }
+    }
+  
+    if(mes < 1 || mes > 12){
+        printf("Mês inválido\n");
+    }else if(encontradoA==0 && encontradoP==0){
+        printf("Sem aniversariantes no mês inserido!\n");
+    }
+}
+
 
 int main()
 {
