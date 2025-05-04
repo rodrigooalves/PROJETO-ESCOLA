@@ -621,9 +621,9 @@ void listarAniversariantes(int qtdAluno, Aluno listaAluno[], int qtdProf, Profes
     }
 }
 
-void listarOrdenadosPorNascimento(Aluno listaAluno[], int qtdAluno){
+void listarAlunosOrdenadosPorNascimento(Aluno listaAluno[], int qtdAluno){
     if (qtdAluno == 0) {
-        printf("Nao ha alunos cadastrados!\n");
+        printf("Nao há alunos cadastrados!\n");
         return;
     }
 
@@ -659,9 +659,75 @@ void listarOrdenadosPorNascimento(Aluno listaAluno[], int qtdAluno){
     
 }
 
-void listarOrdenadosPorNome(Aluno listaAluno[], int qtdAluno){
+void listarProfessoresOrdenadosPorNascimento(Professor listaProfessor[], int qtdProf){
+    if (qtdProf == 0) {
+        printf("Nao há professores cadastrados!\n");
+        return;
+    }
+
+    // Copiar lista
+    Professor copialistaProf[100];
+    for (int i = 0; i < qtdProf; i++) {
+        copialistaProf[i] = listaProfessor[i];
+    }
+    
+    for (int i = 0; i < qtdProf - 1; i++) {
+        for (int j = 0; j < qtdProf - 1 - i; j++) {
+            int ano1 = copialistaProf[j].data_professor.ano;
+            int mes1 = copialistaProf[j].data_professor.mes;
+            int dia1 = copialistaProf[j].data_professor.dia;
+
+            int ano2 = copialistaProf[j + 1].data_professor.ano;
+            int mes2 = copialistaProf[j + 1].data_professor.mes;
+            int dia2 = copialistaProf[j + 1].data_professor.dia;
+
+            if ( ano1 > ano2 || (ano1 == ano2 && mes1 > mes2) || (ano1 == ano2 && mes1 == mes2 && dia1 > dia2)) {
+                Professor temp = copialistaProf[j];
+                copialistaProf[j] = copialistaProf[j + 1];
+                copialistaProf[j + 1] = temp;
+            }
+        }
+    }
+    
+    for (int i = 0; i < qtdProf; i++) {
+        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaProfessor[i].matricula, listaProfessor[i].nome,
+        listaProfessor[i].cpf, listaProfessor[i].sexo,
+        listaProfessor[i].data_professor.dia, listaProfessor[i].data_professor.mes, listaProfessor[i].data_professor.ano);
+    }
+}
+
+void listarProfessoresOrdenadosPorNome(Professor listaProfessor[], int qtdProf){
+    if (qtdProf == 0) {
+        printf("Nao há professores cadastrados!\n");
+        return;
+    }
+
+    // Copiar lista
+    Professor copialistaProf[100];
+    for (int i = 0; i < qtdProf; i++) {
+        copialistaProf[i] = listaProfessor[i];
+    }
+    
+    for (int i = 0; i < qtdProf - 1; i++) {
+        for (int j = 0; j < qtdProf - 1 - i; j++) {
+            if (strcmp(copialistaProf[j].nome, copialistaProf[j + 1].nome) > 0) {
+                Professor temp = copialistaProf[j];
+                copialistaProf[j] = copialistaProf[j + 1];
+                copialistaProf[j + 1] = temp;
+            }
+        }
+    }
+    
+    for (int i = 0; i < qtdProf; i++) {
+        printf("Matricula: %d - Nome: %s, CPF: %s, Sexo: %c , Data de nascimento: %d/%d/%d. \n", listaProfessor[i].matricula, listaProfessor[i].nome,
+        listaProfessor[i].cpf, listaProfessor[i].sexo,
+        listaProfessor[i].data_professor.dia, listaProfessor[i].data_professor.mes, listaProfessor[i].data_professor.ano);
+    }
+}
+
+void listarAlunosOrdenadosPorNome(Aluno listaAluno[], int qtdAluno){
     if (qtdAluno == 0) {
-        printf("Nao ha alunos cadastrados!\n");
+        printf("Nao há alunos cadastrados!\n");
         return;
     }
 
@@ -1221,12 +1287,12 @@ int main()
                 case 6:
                     // Função para listar alunos ordenados por nome
                     printf("Alunos ordenados por nome:\n");
-                    listarOrdenadosPorNome(listaAluno, qtdAluno);
+                    listarAlunosOrdenadosPorNome(listaAluno, qtdAluno);
                     break;
                 case 7:
                     // Função para listar alunos ordenados por data de nascimento
                     printf("Alunos ordenados por data de nascimento:\n");
-                    listarOrdenadosPorNascimento(listaAluno, qtdAluno);
+                    listarAlunosOrdenadosPorNascimento(listaAluno, qtdAluno);
                     break;
                 case 8:
                     // Função para listar professores por sexo
@@ -1235,12 +1301,12 @@ int main()
                 case 9:
                     // Função para listar professores ordenados por nome
                     printf("Professores ordenados por nome:\n");
-                    listarOrdenadosPorNome(listaProfessor, qtdProf);
+                    listarProfessoresOrdenadosPorNome(listaProfessor, qtdProf);
                     break;
                 case 10:
                     // Função para listar professores ordenados por data de nascimento
                     printf("Professores ordenados por data de nascimento:\n");
-                    listarOrdenadosPorNascimento(listaProfessor, qtdProf);
+                    listarProfessoresOrdenadosPorNascimento(listaProfessor, qtdProf);
                     break;
                 case 11:
                     // Função para listar aniversariantes do mês
